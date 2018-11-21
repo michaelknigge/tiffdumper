@@ -1,7 +1,7 @@
 package de.textmode.tiffdumper;
 
 /*
- * Copyright 2017 Michael Knigge
+ * Copyright 2018 Michael Knigge
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +71,6 @@ public final class Main {
 
             final TiffDumperBuilder builder = new TiffDumperBuilder();
             builder.quiet(line.hasOption("quiet"));
-            builder.showOffsets(line.hasOption("offsets"));
             builder.verbose(line.hasOption("verbose"));
 
             try (final InputStream in = new FileInputStream(fileNames[0])) {
@@ -93,36 +92,36 @@ public final class Main {
     }
 
     /**
-     * Dumps the PCL data stream to System.out.
+     * Dumps the TIFF image to System.out.
      *
-     * @param dumper   a ready to use (configured) {@link PclDumper}.
-     * @param in   the {@link InputStream} to read from
+     * @param dumper   a ready to use (configured) {@link TiffDumper}.
+     * @param in       the {@link InputStream} to read from
      */
-    private static void dumpToStandardOutput(PclDumper dumper, InputStream in) {
+    private static void dumpToStandardOutput(final TiffDumper dumper, final InputStream in) {
         try {
             dumper.dump(in, System.out);
-        } catch (IOException | PclException e) {
+        } catch (final IOException e) {
             showError(e.getMessage());
         }
     }
 
     /**
-     * Dumps the PCL data stream to a file.
+     * Dumps the TIFF image to a file.
      *
-     * @param dumper   a ready to use (configured) {@link PclDumper}.
-     * @param in   the {@link InputStream} to read from
-     * @param fileName   the name of the output file.
+     * @param dumper   a ready to use (configured) {@link TiffDumper}.
+     * @param in       the {@link InputStream} to read from
+     * @param fileName the name of the output file.
      */
-    private static void dumpToFile(PclDumper dumper, InputStream in, String fileName) {
+    private static void dumpToFile(final TiffDumper dumper, final InputStream in, final String fileName) {
         try (final PrintStream out = new PrintStream(fileName, "utf-8")) {
             dumper.dump(in, out);
-        } catch (final PclException | IOException e) {
+        } catch (final IOException e) {
             showError(e.getMessage());
         }
     }
 
     /**
-     * Shows the online help of PCL-Dumper and exits the JVM with RC=1.
+     * Shows the online help of TIFF-Dumper and exits the JVM with RC=1.
      *
      * @param options   all valid command line options.
      */
