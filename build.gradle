@@ -23,7 +23,7 @@ subprojects {
     apply plugin: 'net.researchgate.release'
     apply plugin: 'com.github.johnrengelman.shadow'
 
-    version = "0.2"
+    version = "0.3"
 
     check.dependsOn jacocoTestReport
 
