@@ -29,6 +29,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import mil.nga.tiff.util.TiffException;
+
 
 /**
  * This is the Main-Class of TIFF-Dumper. It is just used to parse the command line arguments. This is the
@@ -36,6 +38,7 @@ import org.apache.commons.cli.ParseException;
  * to your own applications but do not want more external dependencies - just use the {@link TiffDumperBuilder}
  * directly.
  */
+@SuppressWarnings("nls")
 public final class Main {
 
     private static final String HELP_HEADER =
@@ -82,6 +85,8 @@ public final class Main {
             } catch (final FileNotFoundException e) {
                 showError(e.getMessage());
             } catch (final IOException e) {
+                showError(e.getMessage());
+            } catch (final TiffException e) {
                 showError(e.getMessage());
             }
         } catch (final ParseException e) {
