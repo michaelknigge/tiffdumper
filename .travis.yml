@@ -6,3 +6,28 @@ jdk:
 
 script:
   "./gradlew"
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+before_script:
+  - pip install --user codecov
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "VX901v007oPGWhOYdUjfauBRuyrJfEFNIrLmsyTilNlUxgp8Yw0o+BhRyCGmj1Yy34DcoF5gBlxWY8g3HHYSXyrQiwyKQCNxV9pfeS8FKtNKtjm9qjKppz5RwZJASRWptI0nvP0QgwEDjE3dUOBkIFx15aTs6KwO8FOiyk4Ux5TKL3JR/oLWOgZzhBqk/cI1LQosYDtU2WqyleADdSEBmCwARAxUOoVXxMkme0wZxlRWi7HBwH5kIglEwpbR/M/tMA5IzJ8wU5tzlUCmA5WozYmmR25cXD+7PzlA/NmMPLZPxuIMxgxJCwJsB6bkWIyS1eNyRvXBivKtN05GS3bN7bb3EroWcfvIDJucfLbXMtUSsPlXzTbd9tB95cAl99lQkZ2Ghqyf1fAklG0Gwa9Y0aVdDyCEjBSdgoz03QZRTUkrJEdmGqaFRI7w+KG/XD+074lpwLjuESKOvwVGUE+1AUWqr//VOnbPmKQTdPKgJhUY2XNhjQosvokTzjfVhOnfeC5niNpRf+NqUD/kNXIJuVkyXaLt7Ap7WnKGMy3x/2gOvSHO9pgJ6Hxjp5t0iSUJHpIWP3eyn0b1RPJAvtTYWSulppL3LywfnugMDb9jSGHlj2Y1S50ba/d2i73wb1f4/jQMhwwF9CTdXLzHF4cxVSrrbQQHqgIR1Khr2yg2erI="
+
+addons:
+  coverity_scan:
+    project:
+      name: "michaelknigge/tiffdumper"
+      description: "Build submitted via Travis CI"
+    notification_email: michael.knigge@gmx.de
+    build_command_prepend: "./gradlew clean"
+    build_command:   "./gradlew"
+    branch_pattern: master
