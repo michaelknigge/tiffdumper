@@ -11,7 +11,7 @@ For your convenience tiffdumper comes in two flavours - as a regular JAR and as 
 Just invoke the tiffdumper from a command line without any additional parameter to get a list of all available options:
 
 ```
-$ java -jar tiffdumper-0.2-all.jar -h
+$ java -jar tiffdumper-0.4-all.jar -h
 usage: tiffdumper [OPTION]... [FILE]
 
 TIFF-Dumper reads a TIFF file and dumps every tag.
@@ -30,8 +30,8 @@ If you want to use tiffdumper in your own code to create TIFF dumps, you need to
 
 # Examples
 ```
-$ java -jar tiffdumper-0.2-all.jar -q myfile.tif
-TIFF-Dumper 0.2 - https://github.com/michaelknigge/tiffdumper
+$ java -jar tiffdumper-0.4-all.jar -q myfile.tif
+TIFF-Dumper 0.4 - https://github.com/michaelknigge/tiffdumper
 ------------------------------------------------------------------------------
  
 Directories : 1
