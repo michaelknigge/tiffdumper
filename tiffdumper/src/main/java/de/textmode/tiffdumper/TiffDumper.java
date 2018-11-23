@@ -156,7 +156,7 @@ public final class TiffDumper {
                 out.print(String.format("%7d: ", ++ix));
                 dumpSingleValue(longs, type, out);
             }
-        } else if (type == FieldType.UNDEFINED) {
+        } else if (dumpAsHexDump(values, type)) {
             out.println("Tag contains " + values.size() + " bytes");
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -177,12 +177,20 @@ public final class TiffDumper {
         }
     }
 
+    private static boolean dumpAsHexDump(final List<Object> values, final FieldType type) {
+        if (values.size() == 1) {
+            return false;
+        }
+        return type == FieldType.BYTE ||  type == FieldType.SBYTE || type == FieldType.UNDEFINED;
+    }
+
     private static void dumpSingleValue(final Object value, final FieldType type, final PrintStream out) {
 
         switch (type) {
         case BYTE:
         case SBYTE:
-            out.println(((Number) value).intValue());
+        case UNDEFINED:
+            out.println(((Number) value).shortValue());
             break;
         case ASCII:
             out.println(value.toString());
@@ -207,9 +215,6 @@ public final class TiffDumper {
             } else {
                 out.println(((Number) value).longValue());
             }
-            break;
-        case UNDEFINED:
-            out.println(((Number) value).shortValue());
             break;
         case FLOAT:
             out.println(((Number) value).floatValue());
