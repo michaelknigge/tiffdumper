@@ -167,7 +167,7 @@ public final class TiffDumper {
             outputHexDump(baos.toByteArray(), out);
 
         } else {
-            out.print("Tag contains " + values.size() + " entries");
+            out.print("Tag contains " + values.size());
             out.println(values.size() > 1 ? " entries" : " entry");
 
             for (int ix = 0; ix < values.size(); ++ix) {
