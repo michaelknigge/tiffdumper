@@ -113,9 +113,9 @@ public final class TiffDumper {
             final PrintStream out) {
 
         out.println(" ");
-        out.println("Directory #" + directoryNumber +
-                " (" +  directory.size() + " bytes" +
-                ", " +  directory.numEntries() + " entries)");
+        out.println("Directory #" + directoryNumber
+                + " (" +  directory.size() + " bytes"
+                + ", " +  directory.numEntries() + " entries)");
         out.println("----------------------------------------------------------------------");
 
         for (final FileDirectoryEntry entry : directory.getEntries()) {
@@ -123,6 +123,7 @@ public final class TiffDumper {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static void dumpFileDirectoryEntry(final FileDirectoryEntry entry, final PrintStream out) {
         final StringBuilder sb = new StringBuilder();
         sb.append(String.format("%-30s", entry.getFieldTag()));
@@ -206,7 +207,9 @@ public final class TiffDumper {
         case RATIONAL:
         case SRATIONAL:
             if (value instanceof List) {
+                @SuppressWarnings("unchecked")
                 final List<Long> list = (List<Long>) value;
+
                 final long fraction = list.get(0).longValue();
                 final long denominator = list.get(1).longValue();
                 final double result = (double) fraction / (double) denominator;
