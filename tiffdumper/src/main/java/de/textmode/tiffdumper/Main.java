@@ -105,7 +105,7 @@ public final class Main {
     private static void dumpToStandardOutput(final TiffDumper dumper, final InputStream in) {
         try {
             dumper.dump(in, System.out);
-        } catch (final IOException e) {
+        } catch (final IOException | TiffException e) {
             showError(e.getMessage());
         }
     }
@@ -120,7 +120,7 @@ public final class Main {
     private static void dumpToFile(final TiffDumper dumper, final InputStream in, final String fileName) {
         try (final PrintStream out = new PrintStream(fileName, "utf-8")) {
             dumper.dump(in, out);
-        } catch (final IOException e) {
+        } catch (final IOException | TiffException e) {
             showError(e.getMessage());
         }
     }
